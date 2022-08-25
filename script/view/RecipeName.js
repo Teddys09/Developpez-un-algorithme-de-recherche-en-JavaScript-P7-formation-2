@@ -3,7 +3,7 @@ export class RecipeName {
     const contentTag = document.getElementById('content');
     recipes.forEach((recipe) => {
       const recipeTag = document.createElement('div');
-      console.log(recipe);
+
       recipeTag.classList.add('recipe-card');
       recipeTag.innerHTML = `
       <div class="recipe-img">
