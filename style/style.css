@@ -47,7 +47,11 @@ header h1 {
 }
 
 /* Section Search Dropdown */
+.filter {
+  display: flex;
 
+  margin-bottom: 40px;
+}
 .filter input {
   border: none;
   width: 170px;
@@ -63,11 +67,20 @@ header h1 {
   padding-left: 12px;
   font-family: 'Roboto', sans-serif;
 }
-.ingredients-container {
+.input-container {
   position: relative;
+  margin-right: 20px;
 }
 .ingredients-input {
   background-color: #3282f7;
+}
+
+.appliances-input {
+  background-color: #68d9a4;
+}
+
+.ustensils-input {
+  background-color: #ed6454;
 }
 .icon-dropdown {
   position: absolute;
@@ -77,6 +90,71 @@ header h1 {
 }
 .icon-dropdown:hover {
   cursor: pointer;
+}
+
+/* Dropdown on click */
+.dropdown-ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  color: white;
+  overflow: hidden;
+  max-height: 396px;
+  padding-bottom: 10px;
+  list-style-type: none;
+  width: 667px;
+}
+.dropdown-ul li {
+  flex-basis: 30%;
+  margin-bottom: 19px;
+  margin-left: 12px;
+  font-size: 18px;
+}
+.dropdown-ul li:hover {
+  cursor: pointer;
+}
+.ingredients {
+  background-color: #3282f7;
+}
+.appliances {
+  background-color: #68d9a4;
+}
+.ustensils {
+  background-color: #ed6454;
+}
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* Filter Box */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.filter-box {
+  display: flex;
+  font-size: 18px;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+.filter-box p {
+  margin-right: 10px;
+}
+.filter-box img:hover {
+  cursor: pointer;
+}
+.filter-ingredients {
+  background-color: #3282f7;
+}
+.filter-appliances {
+  background-color: #68d9a4;
+}
+.filter-ustensils {
+  background-color: #ed6454;
 }
 
 /* Section Recipe */
