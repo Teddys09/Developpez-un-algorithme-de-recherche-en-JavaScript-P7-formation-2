@@ -158,7 +158,7 @@ header h1 {
 }
 
 /* Section Recipe */
-#content {
+.content {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;

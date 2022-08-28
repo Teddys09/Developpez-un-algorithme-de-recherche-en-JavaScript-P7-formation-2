@@ -35,7 +35,7 @@ export class Model {
         ustensils.add(ustensil);
       });
     });
-    console.log(ustensils);
+
     return ustensils;
   }
 }

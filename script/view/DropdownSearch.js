@@ -1,3 +1,5 @@
+import { SearchByFilter } from '../utils/SearchByFilter.js';
+
 export class DropdownSearch {
   ingredientsDropdown(
     liSelectedFilter,
@@ -5,10 +7,9 @@ export class DropdownSearch {
     ulName,
     ingredientsContainer,
     dropdown,
-    input
+    input,
+    recipes
   ) {
-    console.log(ingredients);
-
     let isDropdownOpen = false;
     dropdown.addEventListener('click', () => {
       if (!isDropdownOpen) {
@@ -17,7 +18,7 @@ export class DropdownSearch {
         ingredientsContainer.appendChild(ul);
         ingredients.forEach((ingredient) => {
           let li = document.createElement('li');
-          li.classList.add('ingredient');
+          li.classList.add('ingredient', `${ulName}-selector`);
           li.innerHTML = ingredient;
           ul.appendChild(li);
           // add style on input
@@ -36,23 +37,18 @@ export class DropdownSearch {
         isDropdownOpen = false;
       }
       let ingredientLi = document.querySelectorAll('.ingredient');
-      let isClicked = false;
+
       ingredientLi.forEach((li) => {
         li.addEventListener('click', () => {
-          if (!isClicked) {
-            makeFilterDiv(li.textContent);
-            isClicked = true;
-          } else {
-            makeFilterDiv(li.textContent);
-            isClicked = false;
-          }
+          makeFilterDiv(li.textContent, recipes, liSelectedFilter);
+          onDeleteFilter(recipes, liSelectedFilter);
         });
       });
     });
 
     //
 
-    function makeFilterDiv(li) {
+    function makeFilterDiv(li, recipes, liSelectedFilter) {
       let filterContainer = document.querySelector('.filter-container');
 
       const filterToDelete = liSelectedFilter.findIndex(
@@ -63,13 +59,17 @@ export class DropdownSearch {
       createDiv.classList.add('filter-box', `filter-${ulName}`);
       createDiv.innerHTML = `
       <p>${li}</p>
-      <img src="./assets/icons/delete.svg" alt="delete" class="delete-filter">
+      <img src="./assets/icons/delete.svg" alt="delete" class="delete-filter ${ulName}-selector">
       `;
       if (filterContainer.children.length === 0) {
         filterContainer.appendChild(createDiv);
+
         liSelectedFilter.push(li);
+        console.log(liSelectedFilter);
+        onDeleteFilter(recipes, liSelectedFilter);
       } else if (liSelectedFilter.includes(li)) {
         liSelectedFilter.splice(filterToDelete, 1);
+
         filterContainer.removeChild(filterContainer.children[filterToDelete]);
       } else {
         filterContainer.appendChild(createDiv);
@@ -84,12 +84,26 @@ export class DropdownSearch {
               (filter) => filter === elementToDelete
             );
             liSelectedFilter.splice(filterToDelete, 1);
+            onDeleteFilter(recipes, liSelectedFilter);
+
             filterContainer.removeChild(
               filterContainer.children[filterToDelete]
             );
           }
+          //  let searchByFilter = new SearchByFilter();
+          // searchByFilter.sortByFilter(recipes, liSelectedFilter);
         }
       });
     }
   }
+}
+export function onDeleteFilter(recipes, liSelectedFilter) {
+  // let filterSelector = document.querySelectorAll(`.${ulName}-selector`);
+  //  filterSelector.forEach((selector) => {
+  //  selector.addEventListener('click', () => {
+  //    console.log('hi');
+  let searchByFilter = new SearchByFilter();
+  searchByFilter.sortByFilter(recipes, liSelectedFilter);
+  //  });
+  //  });
 }

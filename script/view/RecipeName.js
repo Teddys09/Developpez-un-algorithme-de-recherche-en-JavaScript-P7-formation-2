@@ -1,6 +1,7 @@
 export class RecipeName {
   showData(recipes) {
-    const contentTag = document.getElementById('content');
+    const contentTag = document.querySelector('#content');
+
     recipes.forEach((recipe) => {
       const recipeTag = document.createElement('div');
 

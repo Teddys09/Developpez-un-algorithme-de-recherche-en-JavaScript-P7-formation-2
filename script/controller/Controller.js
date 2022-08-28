@@ -1,7 +1,5 @@
 import { RecipeName } from '../view/RecipeName.js';
-import { Appliances } from '../view/Appliances.js';
-import { Ustensils } from '../view/Ustensils.js';
-import { Ingredients } from '../view/Ingredients.js';
+import { SearchByInput } from '../utils/SearchByInput.js';
 import { Model } from '../model/Model.js';
 import { DropdownSearch } from '../view/DropdownSearch.js';
 
@@ -16,13 +14,15 @@ export class Controller {
 
   dropdownSearch() {
     let liSelectedFilter = [];
+    let modelRecipe = new Model();
+    let recipes = modelRecipe.getRecipes();
 
     let dropdownIngredients = document.querySelector('.ingredients-dropdown');
     let ulNameIngredients = 'ingredients';
     let modelIngredients = new Model();
+    let ingredients = modelIngredients.getIngredients();
     let ingredientsContainer = document.querySelector('.ingredients-container');
     let ingredientsInput = document.querySelector('.ingredients-input');
-    let ingredients = modelIngredients.getIngredients();
     let dropdownSearchIngredients = new DropdownSearch();
     dropdownSearchIngredients.ingredientsDropdown(
       liSelectedFilter,
@@ -30,8 +30,10 @@ export class Controller {
       ulNameIngredients,
       ingredientsContainer,
       dropdownIngredients,
-      ingredientsInput
+      ingredientsInput,
+      recipes
     );
+
     let dropdownAppliances = document.querySelector('.appliances-dropdown');
     let appliancesContainer = document.querySelector('.appliances-container');
     let ulNameAppliances = 'appliances';
@@ -45,7 +47,8 @@ export class Controller {
       ulNameAppliances,
       appliancesContainer,
       dropdownAppliances,
-      dropDownInput
+      dropDownInput,
+      recipes
     );
     let dropdownUstensils = document.querySelector('.ustensils-dropdown');
     let ustensilsContainer = document.querySelector('.ustensils-container');
@@ -60,7 +63,11 @@ export class Controller {
       ulNameUstensils,
       ustensilsContainer,
       dropdownUstensils,
-      dropdownInput
+      dropdownInput,
+      recipes
     );
+
+    let searchByInput = new SearchByInput();
+    searchByInput.searchByInput(ingredients, liSelectedFilter);
   }
 }
