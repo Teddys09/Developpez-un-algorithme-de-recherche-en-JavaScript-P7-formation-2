@@ -11,9 +11,12 @@ export class DropdownSearch {
     recipes
   ) {
     let isDropdownOpen = false;
+    let ingredientsSearchInput = document.querySelector(
+      `.${ulName}-search-input`
+    );
 
     dropdown.addEventListener('click', () => {
-      if (!isDropdownOpen) {
+      if (!document.querySelector(`.dropdown-ul-${ulName}`)) {
         let ul = document.createElement('ul');
         ul.classList.add(`${ulName}`, 'dropdown-ul', `dropdown-ul-${ulName}`);
         ingredientsContainer.appendChild(ul);
@@ -22,11 +25,13 @@ export class DropdownSearch {
           li.classList.add('ingredient', `${ulName}-selector`);
           li.innerHTML = ingredient;
           ul.appendChild(li);
+
           // add style on input
           input.style.width = '667px';
           input.style.borderRadius = '5px 5px 0 0';
           dropdown.style.left = '620px';
           dropdown.classList.add('rotate');
+          ingredientsSearchInput.style.display = 'none';
           isDropdownOpen = true;
         });
       } else {
@@ -34,7 +39,10 @@ export class DropdownSearch {
         input.style.width = '170px';
         input.style.borderRadius = '5px';
         dropdown.style.left = '140px';
+
         dropdown.classList.remove('rotate');
+
+        ingredientsSearchInput.style.display = 'none';
         isDropdownOpen = false;
       }
       let ingredientLi = document.querySelectorAll('.ingredient');
@@ -67,7 +75,7 @@ export function makeFilterDiv(li, recipes, liSelectedFilter, ulName) {
     filterContainer.appendChild(createDiv);
 
     liSelectedFilter.push(li);
-    console.log(liSelectedFilter);
+
     onDeleteFilter(recipes, liSelectedFilter);
   } else if (liSelectedFilter.includes(li)) {
     liSelectedFilter.splice(filterToDelete, 1);
@@ -103,12 +111,21 @@ export function onDeleteFilter(recipes, liSelectedFilter) {
 
 function searchByInput(ingredients, liSelectedFilter, recipes, ulName, oldLi) {
   let ingredientsInput = document.querySelector(`.${ulName}-input`);
-
   let divUnderInput = document.querySelector(`.${ulName}-search-input`);
+  let dropdownIcon = document.querySelector(`.${ulName}-dropdown`);
 
   ingredientsInput.addEventListener('input', (e) => {
+    let ulDropdown = document.querySelector(`.dropdown-ul-${ulName}`);
+
     if (e.target.value.length > 2 && ulName) {
-      console.log(ingredients);
+      ingredientsInput.style.borderRadius = '5px 5px 0 0';
+      if (ulDropdown) {
+        ulDropdown.remove();
+        ingredientsInput.style.width = '170px';
+        ingredientsInput.style.borderRadius = '5px 5px 0 0';
+        dropdownIcon.style.left = '140px';
+        dropdownIcon.classList.remove('rotate');
+      }
 
       ingredients.forEach((ingredient) => {
         ingredient = ingredient.toLowerCase();
@@ -117,6 +134,7 @@ function searchByInput(ingredients, liSelectedFilter, recipes, ulName, oldLi) {
           !liSelectedFilter.includes(ingredient)
         ) {
           divUnderInput.style.display = 'block';
+          // ingredientsInput.style.borderRadius = '0 0 0 0';
           let li = document.createElement('li');
           li.classList.add(
             `${ulName}`,
@@ -135,7 +153,6 @@ function searchByInput(ingredients, liSelectedFilter, recipes, ulName, oldLi) {
           if (divUnderInput.children.length === 0) {
             divUnderInput.appendChild(li);
             oldLi.push(li.textContent);
-            console.log(oldLi);
           } else if (oldLi.includes(li.textContent)) {
             return;
           } else {
@@ -144,12 +161,11 @@ function searchByInput(ingredients, liSelectedFilter, recipes, ulName, oldLi) {
           }
 
           li.addEventListener('click', () => {
-            console.log(li.textContent);
             if (liSelectedFilter.includes(li.textContent)) {
               return;
             } else {
               makeFilterDiv(li.textContent, recipes, liSelectedFilter, ulName);
-              console.log(liSelectedFilter);
+
               onDeleteFilter(recipes, liSelectedFilter);
               divUnderInput.style.display = 'none';
 
@@ -159,19 +175,45 @@ function searchByInput(ingredients, liSelectedFilter, recipes, ulName, oldLi) {
                   let filterToDelete = oldLi.findIndex(
                     (filter) => filter === li.textContent
                   );
-                  console.log(filterToDelete);
+
                   oldLi.splice(filterToDelete, 1);
                   li.remove();
                 });
-
-              ingredientsInput.blur();
             }
             //  filter(recipes, liSelectedFilter);
+          });
+          e.target.addEventListener('blur', () => {
+            e.target.value = '';
+
+            document
+              .querySelectorAll(`.${ulName}-input-search`)
+              .forEach((li) => {
+                let filterToDelete = oldLi.findIndex(
+                  (filter) => filter === li.textContent
+                );
+
+                oldLi.splice(filterToDelete, 1);
+
+                document.body.addEventListener('click', (e) => {
+                  if (
+                    e.target === li &&
+                    liSelectedFilter.includes(li.textContent)
+                  ) {
+                    li.remove();
+                  }
+                  if (e.target === li) {
+                    return;
+                  } else {
+                    li.remove();
+                  }
+                });
+              });
           });
         }
       });
     } else {
       divUnderInput.style.display = 'none';
+      ingredientsInput.style.borderRadius = '5px ';
     }
   });
 }
