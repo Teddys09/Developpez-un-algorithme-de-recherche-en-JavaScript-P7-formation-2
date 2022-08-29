@@ -1,7 +1,8 @@
 import { RecipeName } from '../view/RecipeName.js';
-import { SearchByInput } from '../utils/SearchByInput.js';
+//import { SearchByInput } from '../utils/SearchByInput.js';
 import { Model } from '../model/Model.js';
 import { DropdownSearch } from '../view/DropdownSearch.js';
+import { SearchByRecipeName } from '../utils/SearchByRecipeName.js';
 
 export class Controller {
   showListRecipes() {
@@ -67,7 +68,10 @@ export class Controller {
       recipes
     );
 
-    let searchByInput = new SearchByInput();
-    searchByInput.searchByInput(ingredients, liSelectedFilter);
+    // let searchByInput = new SearchByInput();
+    // searchByInput.searchByInput(ingredients, liSelectedFilter, recipes);
+
+    let searchByRecipeName = new SearchByRecipeName();
+    searchByRecipeName.sortByRecipeName(recipes, liSelectedFilter);
   }
 }

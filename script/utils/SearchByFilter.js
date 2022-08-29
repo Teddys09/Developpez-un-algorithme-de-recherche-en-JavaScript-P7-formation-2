@@ -3,8 +3,6 @@ import { RecipeName } from '../view/RecipeName.js';
 
 export class SearchByFilter {
   sortByFilter(recipes, liSelectedFilter) {
-    console.log(recipes);
-    console.log(liSelectedFilter);
     const recipeCards = document.querySelectorAll('.recipe-card');
 
     if (liSelectedFilter.length === 0) {
@@ -24,6 +22,7 @@ export class SearchByFilter {
         let ingredients = recipe.ingredients;
         let appliance = recipe.appliance;
         let ustensils = recipe.ustensils;
+        let name = recipe.name;
 
         ingredients.forEach((ingredient) => {
           ingredientsArray.push(ingredient.ingredient);
@@ -43,10 +42,13 @@ export class SearchByFilter {
 
         let applianceFilter = liSelectedFilter.includes(appliance);
 
+        let nameFilter = liSelectedFilter.includes(name);
+
         if (
           ingredientsArrayFilter.length > 0 ||
           ustensilsArrayFilter.length > 0 ||
-          applianceFilter
+          applianceFilter ||
+          nameFilter
         ) {
           recipeName.showData([recipe]);
         }
