@@ -72,6 +72,6 @@ export class Controller {
     // searchByInput.searchByInput(ingredients, liSelectedFilter, recipes);
 
     let searchByRecipeName = new SearchByRecipeName();
-    searchByRecipeName.sortByRecipeName(recipes, liSelectedFilter);
+    // searchByRecipeName.sortByRecipeName(recipes, liSelectedFilter);
   }
 }

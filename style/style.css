@@ -27,16 +27,16 @@ header h1 {
   border: none;
   height: 69px;
   width: 100%;
+  font-size: 18px;
+  padding-left: 15px;
+  color: black;
 
   border-radius: 5px;
 }
 .input-recipe:focus {
   outline: none;
 }
-.input-recipe::placeholder {
-  font-size: 18px;
-  padding-left: 15px;
-}
+
 .ingredients-search-input {
   background-color: #3282f7;
   list-style-type: none;

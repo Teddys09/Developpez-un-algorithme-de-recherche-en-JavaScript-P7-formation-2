@@ -5,6 +5,8 @@ export class SearchByFilter {
   sortByFilter(recipes, liSelectedFilter) {
     const recipeCards = document.querySelectorAll('.recipe-card');
 
+    console.log(liSelectedFilter);
+
     if (liSelectedFilter.length === 0) {
       recipeCards.forEach((recipeCard) => {
         recipeCard.remove();
