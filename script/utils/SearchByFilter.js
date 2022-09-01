@@ -18,6 +18,7 @@ export class SearchByFilter {
         recipeCard.remove();
       });
       let recipeName = new RecipeName();
+      const filteredRecipeList = [];
       recipes.forEach((recipe) => {
         let ingredientsArray = [];
         let ustensilsArray = [];
@@ -52,9 +53,11 @@ export class SearchByFilter {
           applianceFilter ||
           nameFilter
         ) {
-          recipeName.showData([recipe]);
+          filteredRecipeList.push(recipe);
         }
       });
+
+      recipeName.showData(filteredRecipeList);
     }
   }
 }

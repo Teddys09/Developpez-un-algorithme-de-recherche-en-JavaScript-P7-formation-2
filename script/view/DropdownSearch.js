@@ -27,7 +27,7 @@ export class DropdownSearch {
           ul.appendChild(li);
 
           // add style on input
-          input.style.width = '667px';
+          input.style.width = '655px';
           input.style.borderRadius = '5px 5px 0 0';
           dropdown.style.left = '620px';
           dropdown.classList.add('rotate');
@@ -147,6 +147,7 @@ function searchByMainInput(liSelectedFilter, ingredients, recipes, oldInput) {
         }
       });
       console.log(liSelectedFilter);
+
       recipes.forEach((recipe) => {
         let recipeName = recipe.name;
         recipeName = recipeName.toLowerCase();
