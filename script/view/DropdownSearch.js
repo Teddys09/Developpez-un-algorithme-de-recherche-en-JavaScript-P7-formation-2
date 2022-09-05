@@ -57,7 +57,15 @@ export class DropdownSearch {
 
     //
     const oldInput = [];
-    searchByMainInput(liSelectedFilter, ingredients, recipes, oldInput);
+    //searchByMainInput(liSelectedFilter, ingredients, recipes, oldInput);
+
+    searchByMainInputSecond(
+      liSelectedFilter,
+      ingredients,
+      recipes,
+      oldInput,
+      ulName
+    );
     const oldLi = [];
     searchByInput(ingredients, liSelectedFilter, recipes, ulName, oldLi);
   }
@@ -109,6 +117,80 @@ export function makeFilterDiv(li, recipes, liSelectedFilter, ulName) {
 export function onDeleteFilter(recipes, liSelectedFilter) {
   let searchByFilter = new SearchByFilter();
   searchByFilter.sortByFilter(recipes, liSelectedFilter);
+}
+
+function searchByMainInputSecond(
+  liSelectedFilter,
+  ingredients,
+  recipes,
+  oldInput,
+  ulName
+) {
+  let ingredientsSearchInput = document.querySelector('.input-recipe');
+  ingredientsSearchInput.addEventListener('input', (e) => {
+    let input = e.target.value;
+    if (input.length > 2) {
+      if (ulName !== 'ustensils') {
+        console.log('hi');
+        input = input.charAt(0).toUpperCase() + input.slice(1);
+      }
+      ingredients.forEach((ingredient) => {
+        filterInput(
+          input,
+          ingredient,
+          liSelectedFilter,
+          recipes,
+          oldInput,
+          ulName
+        );
+      });
+      recipes.forEach((recipe) => {
+        let recipesName = recipe.name;
+        filterInput(
+          input,
+          recipesName,
+          liSelectedFilter,
+          recipes,
+          oldInput,
+          ulName
+        );
+      });
+
+      oldInput.forEach((ingredient) => {
+        if (!liSelectedFilter.includes(ingredient)) {
+          liSelectedFilter.push(ingredient);
+        }
+      });
+      console.log(liSelectedFilter);
+    }
+    if (liSelectedFilter.length > 0) {
+      oldInput.splice(0, oldInput.length);
+
+      onDeleteFilter(recipes, liSelectedFilter);
+    }
+    if (input.length < 3) {
+      liSelectedFilter.splice(0, liSelectedFilter.length);
+      onDeleteFilter(recipes, liSelectedFilter);
+    }
+  });
+}
+function filterInput(
+  input,
+  ingredient,
+  liSelectedFilter,
+  recipes,
+  oldInput,
+  ulName
+) {
+  let inputNormalized = input.toLowerCase();
+  if (ingredient.includes(input) || ingredient.includes(inputNormalized)) {
+    if (
+      !oldInput.includes(ingredient) &&
+      !liSelectedFilter.includes(ingredient)
+    ) {
+      oldInput.push(ingredient);
+    }
+  }
 }
 
 function searchByMainInput(liSelectedFilter, ingredients, recipes, oldInput) {
@@ -185,6 +267,7 @@ function searchByMainInput(liSelectedFilter, ingredients, recipes, oldInput) {
     console.log(oldInput);
     if (liSelectedFilter.length > 0) {
       oldInput.splice(0, oldInput.length);
+
       onDeleteFilter(recipes, liSelectedFilter);
     }
   });
