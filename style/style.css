@@ -41,8 +41,28 @@ header h1 {
   background-color: #3282f7;
   list-style-type: none;
 }
+.appliances-search-input {
+  list-style-type: none;
+  background-color: #68d9a4;
+}
+.ustensils-search-input {
+  list-style-type: none;
+  background-color: #ed6454;
+}
+.ustensils-search-input li {
+  margin-left: 12px;
+  cursor: pointer;
+  padding-bottom: 10px;
+}
+.appliances-search-input li {
+  margin-left: 12px;
+  cursor: pointer;
+  padding-bottom: 10px;
+}
 .ingredients-search-input li {
   margin-left: 12px;
+  cursor: pointer;
+  padding-bottom: 10px;
 }
 .search-input {
   position: relative;
@@ -136,9 +156,13 @@ header h1 {
 }
 .appliances {
   background-color: #68d9a4;
+  color: white;
+  font-size: 18px;
 }
 .ustensils {
   background-color: #ed6454;
+  color: white;
+  font-size: 18px;
 }
 .rotate {
   transform: rotate(180deg);

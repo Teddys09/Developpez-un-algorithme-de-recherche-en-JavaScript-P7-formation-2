@@ -15,8 +15,5 @@
   "bugs": {
     "url": "https://github.com/Teddys09/Developpez-un-algorithme-de-recherche-en-JavaScript-P7-formation-2/issues"
   },
-  "homepage": "https://github.com/Teddys09/Developpez-un-algorithme-de-recherche-en-JavaScript-P7-formation-2#readme",
-  "dependencies": {
-    "axios": "^0.27.2"
-  }
+  "homepage": "https://github.com/Teddys09/Developpez-un-algorithme-de-recherche-en-JavaScript-P7-formation-2#readme"
 }

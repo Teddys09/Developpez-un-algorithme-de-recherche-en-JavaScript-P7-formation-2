@@ -131,7 +131,6 @@ function searchByMainInputSecond(
     let input = e.target.value;
     if (input.length > 2) {
       if (ulName !== 'ustensils') {
-        console.log('hi');
         input = input.charAt(0).toUpperCase() + input.slice(1);
       }
       ingredients.forEach((ingredient) => {
@@ -161,7 +160,6 @@ function searchByMainInputSecond(
           liSelectedFilter.push(ingredient);
         }
       });
-      console.log(liSelectedFilter);
     }
     if (liSelectedFilter.length > 0) {
       oldInput.splice(0, oldInput.length);
@@ -228,7 +226,6 @@ function searchByMainInput(liSelectedFilter, ingredients, recipes, oldInput) {
           });
         }
       });
-      console.log(liSelectedFilter);
 
       recipes.forEach((recipe) => {
         let recipeName = recipe.name;
@@ -264,7 +261,7 @@ function searchByMainInput(liSelectedFilter, ingredients, recipes, oldInput) {
       liSelectedFilter = [];
       onDeleteFilter(recipes, liSelectedFilter);
     }
-    console.log(oldInput);
+
     if (liSelectedFilter.length > 0) {
       oldInput.splice(0, oldInput.length);
 
